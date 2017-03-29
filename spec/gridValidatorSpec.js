@@ -1,10 +1,10 @@
 let GridValidator = require('../src/GridValidator');
 
-describe('GridValidator', function() {
+describe('GridValidator', () => {
 	let gridValidator = new GridValidator(), 
 			grid;
 
-    it('should return false if grid does not have 8 columns ', function() {
+    it('should return false if grid does not have 8 columns ', () => {
         grid = [
             ['.','.','.','.','.','.','.','.'],
             ['.','.','.','.','.','.','.','.'],
@@ -16,7 +16,7 @@ describe('GridValidator', function() {
         expect(gridValidator._validateColumns(grid)).toEqual(false);
     });
 
-    it('should return false if a grid  does not have 6 rows', function() {
+    it('should return false if a grid  does not have 6 rows', () => {
 		grid = [
 			['.','.','.','.','.','.','.','.'],
 			['.','.','.','.','.','.','.','.'],
@@ -28,7 +28,7 @@ describe('GridValidator', function() {
 		expect(gridValidator._validateRows(grid)).toEqual(false);
 	});
 
-	it('should return false if a valid grid size has invalid characters in it', function() {
+	it('should return false if a valid grid size has invalid characters in it', () => {
 		grid = [
 			['.','.','.','.','.','.','.','.'],
 			['.','.','.','.','.','.','.','.'],
@@ -41,7 +41,7 @@ describe('GridValidator', function() {
 		expect(gridValidator._validateElements(grid)).toEqual(false);
 	});
 
-    it('should return true if a valid grid is submitted', function() {
+    it('should return true if a valid grid is submitted', () => {
         grid = [
             ['.','.','.','.','.','.','.','.'],
             ['.','.','.','.','.','.','.','.'],

@@ -1,6 +1,8 @@
 let _ = require('lodash');
 
 function GridValidator(){
+  this.maxRows = 6;
+  this.maxCols = 8;
 }
 
 GridValidator.prototype.validate = function(array){
@@ -8,12 +10,13 @@ GridValidator.prototype.validate = function(array){
 };
 
 GridValidator.prototype._validateRows = function(array){
-	return array.length === 6;
+	return array.length === this.maxRows;
 };
 
 GridValidator.prototype._validateColumns = function(array){
+  let max = this.maxCols;
 	return array.every(function(subArray){
-		return subArray.length === 8;
+		return subArray.length === max;
 	});
 };
 
