@@ -1,5 +1,7 @@
+let _ = require('lodash');
+
 function GridValidator(){
-};
+}
 
 GridValidator.prototype.validate = function(array){
 	return this._validateRows(array) && this._validateColumns(array);

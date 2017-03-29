@@ -1,6 +1,6 @@
 {
   "watch": {
-    "test": "spec/*.js"
+    "test": "*.js"
   },
   "scripts": {
     "test": "jasmine",
@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "jasmine": "^2.5.3",
+    "lodash": "^4.17.4",
     "npm-watch": "^0.1.8"
   }
 }
