@@ -22,4 +22,10 @@ describe('ConwayGame', function() {
     expect(conway.cellGrid[3][4].alive).toBe(false);
     expect(conway.cellGrid[5][7].alive).toBe(false);
   });
+
+  it('should determine correct number of live neighbors for cells in middle of grid', function (){
+    let result = conway._determineNeighbours(3,4);
+
+    expect(result).toBe(8)
+  });
 });

@@ -19,4 +19,24 @@ Conway.prototype._buildCells = function(grid) {
   return objectGrid;
 };
 
+Conway.prototype._determineNeighbours = function (row, col) {
+  let liveNeighboursCount = 0;
+  let coordinates = [[1,1],
+                    [1, -1],
+                    [-1, 1],
+                    [-1, -1],
+                    [0,1],
+                    [0,-1],
+                    [1, 0],
+                    [-1, 0]
+  ];
+
+  coordinates.forEach(coordinate => {
+    let currentCell = this.cellGrid[row + coordinate[0]][col + coordinate[1]];
+    if(currentCell.alive) liveNeighboursCount++;
+  });
+
+  return liveNeighboursCount;
+};
+
 module.exports = Conway;
