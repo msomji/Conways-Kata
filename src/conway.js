@@ -32,11 +32,20 @@ Conway.prototype._determineNeighbours = function (row, col) {
   ];
 
   coordinates.forEach(coordinate => {
-    let currentCell = this.cellGrid[row + coordinate[0]][col + coordinate[1]];
-    if(currentCell.alive) liveNeighboursCount++;
+    let rowPosition = row + coordinate[0];
+    let colPosition = col + coordinate[1];
+
+    if (validCoordinates(rowPosition, colPosition)){
+      let currentCell = this.cellGrid[row + coordinate[0]][col + coordinate[1]];
+      if(currentCell.alive) liveNeighboursCount++;
+    }
   });
 
   return liveNeighboursCount;
 };
+
+function validCoordinates(x, y) {
+  return x < 6 && x >= 0 && y < 8 && y >= 0;
+}
 
 module.exports = Conway;

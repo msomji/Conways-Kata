@@ -5,7 +5,7 @@ describe('ConwayGame', function() {
     ['.','0','.','.','.','.','.','.'],
     ['.','.','.','.','.','.','.','.'],
     ['.','.','.','.','.','.','.','.'],
-    ['.','.','.','.','0','.','.','.'],
+    ['.','.','.','.','0','0','.','.'],
     ['.','.','.','.','.','.','.','.'],
     ['.','.','.','.','.','.','.','0']
   ];
@@ -26,6 +26,14 @@ describe('ConwayGame', function() {
   it('should determine correct number of live neighbors for cells in middle of grid', function (){
     let result = conway._determineNeighbours(3,4);
 
-    expect(result).toBe(8)
+    expect(result).toBe(7)
   });
+
+  it('should determine correct number of live neighbors for cells on the edged of the grid', function (){
+    let result = conway._determineNeighbours(5,7);
+
+    expect(result).toBe(3)
+  });
+
+  
 });
