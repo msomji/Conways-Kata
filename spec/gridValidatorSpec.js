@@ -4,7 +4,7 @@ describe('GridValidator', function() {
 	let gridValidator = new GridValidator(), 
 			grid;
 
-    it('should return false if grid doesnt have 8 columns ', function() {
+    it('should return false if grid does not have 8 columns ', function() {
         grid = [
             ['.','.','.','.','.','.','.','.'],
             ['.','.','.','.','.','.','.','.'],
@@ -16,7 +16,7 @@ describe('GridValidator', function() {
         expect(gridValidator._validateColumns(grid)).toEqual(false);
     });
 
-    it('should return false if a grid  doesnt have 6 rows', function() {
+    it('should return false if a grid  does not have 6 rows', function() {
 		grid = [
 			['.','.','.','.','.','.','.','.'],
 			['.','.','.','.','.','.','.','.'],
