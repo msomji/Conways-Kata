@@ -2,6 +2,8 @@ let Cell = require('./Cell');
 
 function Conway(grid) {
   this.cellGrid = this._buildCells(grid);
+  this.maxColIndex = 7;
+  this.maxRowIndex = 5;
 }
 
 Conway.prototype._buildCells = function(grid) {
@@ -35,7 +37,7 @@ Conway.prototype._determineNeighbours = function (row, col) {
     let rowPosition = row + coordinate[0];
     let colPosition = col + coordinate[1];
 
-    if (validCoordinates(rowPosition, colPosition)){
+    if (this._validateCoordinates(rowPosition, colPosition)){
       let currentCell = this.cellGrid[row + coordinate[0]][col + coordinate[1]];
       if(currentCell.alive) liveNeighboursCount++;
     }
@@ -44,8 +46,9 @@ Conway.prototype._determineNeighbours = function (row, col) {
   return liveNeighboursCount;
 };
 
-function validCoordinates(x, y) {
-  return x < 6 && x >= 0 && y < 8 && y >= 0;
-}
+Conway.prototype._validateCoordinates = function validCoordinates(row, col) {
+  return row <= this.maxRowIndex && row >= 0 && col <= this.maxColIndex && col >= 0;
+};
+
 
 module.exports = Conway;

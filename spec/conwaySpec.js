@@ -23,6 +23,24 @@ describe('ConwayGame', function() {
     expect(conway.cellGrid[5][7].alive).toBe(false);
   });
 
+  it('should validate that the given coordinates are valid and within the grid', function (){
+    let result = conway._validateCoordinates(5,7);
+
+    expect(result).toBe(true)
+  });
+
+  it('should validate that the given coordinates are invalid and not within the column range', function (){
+    let result = conway._validateCoordinates(5,9);
+
+    expect(result).toBe(false)
+  });
+
+  it('should validate that the given coordinates are invalid and not within the row range', function (){
+    let result = conway._validateCoordinates(9,3);
+
+    expect(result).toBe(false)
+  });
+
   it('should determine correct number of live neighbors for cells in middle of grid', function (){
     let result = conway._determineNeighbours(3,4);
 
@@ -34,6 +52,4 @@ describe('ConwayGame', function() {
 
     expect(result).toBe(3)
   });
-
-  
 });
