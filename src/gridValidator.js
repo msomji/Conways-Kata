@@ -4,7 +4,7 @@ function GridValidator(){
 }
 
 GridValidator.prototype.validate = function(array){
-	return this._validateRows(array) && this._validateColumns(array);
+	return this._validateElements(array) && this._validateRows(array) && this._validateColumns(array);
 };
 
 GridValidator.prototype._validateRows = function(array){
@@ -19,12 +19,7 @@ GridValidator.prototype._validateColumns = function(array){
 
 GridValidator.prototype._validateElements = function(array) {
 	let uniqueArray = _.uniq([].concat.apply([], array)).sort();
-	return uniqueArray.every(isValid);
+	return uniqueArray.every(ele => ele === '0' || ele === '.');
 };
-
-
-function isValid(element) {
-    return element === '0' || element === '.';
-}
 
 module.exports = GridValidator;

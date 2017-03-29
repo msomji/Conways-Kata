@@ -50,8 +50,14 @@ describe('GridValidator', function() {
             ['.','.','.','.','.','.','.','.'],
             ['.','.','.','.','.','.','.','.']
         ];
-
+        spyOn(gridValidator, '_validateElements').and.callThrough();
+        spyOn(gridValidator, '_validateColumns').and.callThrough();
+        spyOn(gridValidator, '_validateRows').and.callThrough();
 
         expect(gridValidator.validate(grid)).toEqual(true);
+        expect(gridValidator._validateElements).toHaveBeenCalled();
+        expect(gridValidator._validateRows).toHaveBeenCalled();
+        expect(gridValidator._validateColumns).toHaveBeenCalled();
+
     });
 });
