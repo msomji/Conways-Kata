@@ -4,6 +4,15 @@ function Conway(grid) {
   this.cellGrid = this._buildCells(grid);
   this.maxColIndex = 7;
   this.maxRowIndex = 5;
+  this.coordinates = [[1,1],
+    [1, -1],
+    [-1, 1],
+    [-1, -1],
+    [0,1],
+    [0,-1],
+    [1, 0],
+    [-1, 0]
+  ];
 }
 
 Conway.prototype._buildCells = function(grid) {
@@ -23,17 +32,8 @@ Conway.prototype._buildCells = function(grid) {
 
 Conway.prototype._determineNeighbours = function (row, col) {
   let liveNeighboursCount = 0;
-  let coordinates = [[1,1],
-                    [1, -1],
-                    [-1, 1],
-                    [-1, -1],
-                    [0,1],
-                    [0,-1],
-                    [1, 0],
-                    [-1, 0]
-  ];
 
-  coordinates.forEach(coordinate => {
+  this.coordinates.forEach(coordinate => {
     let rowPosition = row + coordinate[0];
     let colPosition = col + coordinate[1];
 
@@ -42,7 +42,6 @@ Conway.prototype._determineNeighbours = function (row, col) {
       if(currentCell.alive) liveNeighboursCount++;
     }
   });
-
   return liveNeighboursCount;
 };
 
@@ -50,5 +49,9 @@ Conway.prototype._validateCoordinates = function validCoordinates(row, col) {
   return row <= this.maxRowIndex && row >= 0 && col <= this.maxColIndex && col >= 0;
 };
 
+Conway.prototype._updateNeighbours = function (row, col) {
+  let cell = this.cellGrid[row][col];
+  cell.liveNeighbors = this._determineNeighbours(row,col);
+};
 
 module.exports = Conway;

@@ -52,4 +52,12 @@ describe('ConwayGame', function() {
 
     expect(result).toBe(3)
   });
+
+  it('should update cell\'s liveNeighbors field with appropriate number', function () {
+    let result = conway.cellGrid[3][4];
+
+    conway._updateNeighbours(3,4);
+
+    expect(result.liveNeighbors).toBe(7);
+  });
 });
