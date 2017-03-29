@@ -17,4 +17,14 @@ GridValidator.prototype._validateColumns = function(array){
 	});
 };
 
+GridValidator.prototype._validateElements = function(array) {
+	let uniqueArray = _.uniq([].concat.apply([], array)).sort();
+	return uniqueArray.every(isValid);
+};
+
+
+function isValid(element) {
+    return element === '0' || element === '.';
+}
+
 module.exports = GridValidator;
