@@ -54,4 +54,13 @@ Conway.prototype._updateNeighbours = function (row, col) {
   cell.liveNeighbors = this._determineNeighbours(row,col);
 };
 
+Conway.prototype.playGame = function () {
+  console.log('\033c');
+
+  // print current Cellgrid on terminal
+  // updateNeighbors for each cell
+  // update alive for each cell
+  // print updated CellGrid on terminal
+};
+
 module.exports = Conway;

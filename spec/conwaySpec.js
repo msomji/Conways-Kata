@@ -60,4 +60,13 @@ describe('ConwayGame', () => {
 
     expect(result.liveNeighbors).toBe(7);
   });
+
+  it('should clear terminal screen on playGame', () => {
+
+    spyOn(console, 'log').and.callThrough();
+    conway.playGame();
+
+    expect(console.log).toHaveBeenCalled();
+
+  });
 });
