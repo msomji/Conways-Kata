@@ -103,6 +103,13 @@ describe('ConwayGame', () => {
 
       expect(deadCell.alive).toBe(true);
     });
+
+    it('cell should remain dead if dead cell has 1 live neighbors', function () {
+      deadCell.liveNeighbors = 1;
+      conway._updateCellLife(deadCell);
+
+      expect(deadCell.alive).toBe(false);
+    });
   });
 
   describe('Game Play', function () {

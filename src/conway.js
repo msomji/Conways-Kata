@@ -54,12 +54,12 @@ Conway.prototype._updateNeighbours = function (row, col) {
 };
 
 Conway.prototype._updateCellLife = function (cell) {
-  if (cell.liveNeighbors < 2 && cell.alive) {
-    cell.alive = false;
-  } else if(cell.liveNeighbors === 3 && !cell.alive) {
-    cell.alive = !cell.alive;
-  } else if(cell.liveNeighbors > 3 && cell.alive ) {
-    cell.alive = false;
+  if (cell.alive){
+    if (cell.liveNeighbors < 2 || cell.liveNeighbors > 3) {
+      cell.alive = !cell.alive;
+    }
+  } else {
+    cell.alive = cell.liveNeighbors === 3 ? !cell.alive: cell.alive;
   }
 };
 
