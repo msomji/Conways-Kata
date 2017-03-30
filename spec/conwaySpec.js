@@ -61,12 +61,31 @@ describe('ConwayGame', () => {
     expect(result.liveNeighbors).toBe(7);
   });
 
-  it('should clear terminal screen on playGame', () => {
+  describe('Game Play', function () {
 
-    spyOn(console, 'log').and.callThrough();
-    conway.playGame();
+    beforeEach(() => {
+      spyOn(conway, '_clearTerminal');
+      spyOn(conway, '_updateNeighbours');
+      spyOn(conway, 'updateNeighbours').and.callThrough();
 
-    expect(console.log).toHaveBeenCalled();
+      conway.playGame();
+    });
+    it('should clear terminal screen on playGame', () => {
 
+      expect(conway._clearTerminal).toHaveBeenCalled();
+    });
+
+    it('should updateNeighbors for each cell in grid', function () {
+
+      expect(conway.updateNeighbours).toHaveBeenCalled();
+      expect(conway._updateNeighbours.calls.count()).toBe(48);
+    });
+
+    it('should updateAliveCell for each cell in grid', function () {
+
+      expect(conway.updateNeighbours).toHaveBeenCalled();
+      expect(conway._updateNeighbours.calls.count()).toBe(48);
+    });
   });
+
 });
