@@ -1,4 +1,4 @@
-let _ = require('lodash');
+let uniq = require('lodash').uniq;
 
 function GridValidator(){
   this.maxRows = 6;
@@ -21,7 +21,7 @@ GridValidator.prototype._validateColumns = function(array){
 };
 
 GridValidator.prototype._validateElements = function(array) {
-	let uniqueArray = _.uniq([].concat.apply([], array)).sort();
+	let uniqueArray = uniq([].concat.apply([], array)).sort();
 	return uniqueArray.every(ele => ele === '0' || ele === '.');
 };
 

@@ -21,7 +21,6 @@ Conway.prototype._buildCells = function (grid) {
   let objectGrid = [];
   for (let x =0; x <= this.maxRowIndex; x++){
     let row = [];
-
     for(let y=0; y <= this.maxColIndex; y++) {
       row.push(new Cell(grid[x][y]));
     }
@@ -53,13 +52,19 @@ Conway.prototype._updateNeighbours = function (row, col) {
   cell.liveNeighbors = this._determineNeighbours(row,col);
 };
 
+function updateLiveCells(cell) {
+  if (cell.liveNeighbors < 2 || cell.liveNeighbors > 3) {
+    cell.alive = !cell.alive;
+  }
+}
+function updateDeadCells(cell) {
+  cell.alive = cell.liveNeighbors === 3 ? !cell.alive : cell.alive;
+}
 Conway.prototype._updateCellLife = function (cell) {
   if (cell.alive){
-    if (cell.liveNeighbors < 2 || cell.liveNeighbors > 3) {
-      cell.alive = !cell.alive;
-    }
+    updateLiveCells(cell);
   } else {
-    cell.alive = cell.liveNeighbors === 3 ? !cell.alive: cell.alive;
+    updateDeadCells(cell);
   }
 };
 
