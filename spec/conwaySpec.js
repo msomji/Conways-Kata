@@ -1,4 +1,5 @@
 let Conway = require('../src/Conway');
+let Cell = require('../src/Cell');
 
 describe('ConwayGame', () => {
   let grid = [
@@ -61,12 +62,57 @@ describe('ConwayGame', () => {
     expect(result.liveNeighbors).toBe(7);
   });
 
+  describe('Update Cell Life', function () {
+    let liveCell, deadCell;
+    beforeEach(() => {
+      liveCell = new Cell('.');
+      deadCell = new Cell('0');
+    });
+
+    it('cell should die if it has less than 2 neighbors', function () {
+      liveCell.liveNeighbors = 1;
+      conway._updateCellLife(liveCell);
+
+      expect(liveCell.alive).toBe(false);
+    });
+
+    it('cell should die if it has more  than 3 neighbors', function () {
+      liveCell.liveNeighbors = 4;
+      conway._updateCellLife(liveCell);
+
+      expect(liveCell.alive).toBe(false);
+    });
+
+    it('cell should live if cell has exactly 2 neighbors', function () {
+      liveCell.liveNeighbors = 2;
+      conway._updateCellLife(liveCell);
+
+      expect(liveCell.alive).toBe(true);
+    });
+
+    it('cell should live if cell has exactly 3 neighbors', function () {
+      liveCell.liveNeighbors = 3;
+      conway._updateCellLife(liveCell);
+
+      expect(liveCell.alive).toBe(true);
+    });
+
+    it('cell should come back to life if dead cell has exactly 3 neighbors', function () {
+      deadCell.liveNeighbors = 3;
+      conway._updateCellLife(deadCell);
+
+      expect(deadCell.alive).toBe(true);
+    });
+  });
+
   describe('Game Play', function () {
 
     beforeEach(() => {
       spyOn(conway, '_clearTerminal');
       spyOn(conway, '_updateNeighbours');
       spyOn(conway, 'updateNeighbours').and.callThrough();
+      spyOn(conway, '_updateCellLife');
+      spyOn(conway, 'updateCellLife').and.callThrough();
 
       conway.playGame();
     });
@@ -81,10 +127,10 @@ describe('ConwayGame', () => {
       expect(conway._updateNeighbours.calls.count()).toBe(48);
     });
 
-    it('should updateAliveCell for each cell in grid', function () {
+    it('should updateCellLife for each cell in grid', function () {
 
-      expect(conway.updateNeighbours).toHaveBeenCalled();
-      expect(conway._updateNeighbours.calls.count()).toBe(48);
+      expect(conway.updateCellLife).toHaveBeenCalled();
+      expect(conway._updateCellLife.calls.count()).toBe(48);
     });
   });
 

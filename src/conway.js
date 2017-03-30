@@ -53,44 +53,55 @@ Conway.prototype._updateNeighbours = function (row, col) {
   cell.liveNeighbors = this._determineNeighbours(row,col);
 };
 
-Conway.prototype.playGame = function () {
-  this._clearTerminal();
-  this.printGrid();
-
-  this.updateNeighbours();
-  // update alive for each cell
-  // print updated CellGrid on terminal
+Conway.prototype._updateCellLife = function (cell) {
+  if (cell.liveNeighbors < 2 && cell.alive) {
+    cell.alive = false;
+  } else if(cell.liveNeighbors === 3 && !cell.alive) {
+    cell.alive = !cell.alive;
+  } else if(cell.liveNeighbors > 3 && cell.alive ) {
+    cell.alive = false;
+  }
 };
 
 Conway.prototype._clearTerminal = function() {
   console.log('\033c');
 };
 
-Conway.prototype.printGrid = function() {
-  for(let i=0; i <= this.maxRowIndex; i++){
-    let printRow = "";
-    let row = this.cellGrid[i];
-    for(let j =0; j < row.length; j++){
-      let cell = this.cellGrid[i][j];
-      printRow += cell.alive ? '.' : '0';
-    }
-    console.log(printRow + '\n');
-  }
-};
-
-Conway.prototype.updateNeighbours = function(foo) {
+Conway.prototype.updateNeighbours = function() {
   for(let i=0; i <= this.maxRowIndex; i++){
     let row = this.cellGrid[i];
     for(let j =0; j < row.length; j++){
-      let cell = this.cellGrid[i][j];
         this._updateNeighbours(i,j);
     }
   }
 };
 
-
-Conway.prototype.stepGame = function (num) {
-
-  //calls playGame a certain number of times
+Conway.prototype.updateCellLife = function() {
+  for(let i=0; i <= this.maxRowIndex; i++){
+    let row = this.cellGrid[i];
+    for(let j =0; j < row.length; j++){
+      this._updateCellLife(this.cellGrid[i][j]);
+    }
+  }
 };
+
+Conway.prototype.playGame = function () {
+  this.printGrid();
+  this.updateNeighbours();
+  this.updateCellLife();
+  this.printGrid();
+};
+
+Conway.prototype.printGrid = function() {
+  this._clearTerminal();
+  for(let i=0; i <= this.maxRowIndex; i++){
+    let printRow = "";
+    let row = this.cellGrid[i];
+    for(let j =0; j < row.length; j++){
+      printRow += this.cellGrid[i][j].alive ? '.' : '0';
+    }
+    console.log(printRow + '\n');
+  }
+};
+
 module.exports = Conway;
