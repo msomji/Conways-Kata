@@ -1,5 +1,6 @@
 let Conway = require('../src/Conway');
 let Cell = require('../src/Cell');
+let GridValidator = require('../src/gridValidator');
 
 describe('ConwayGame', () => {
   let grid = [
@@ -11,6 +12,10 @@ describe('ConwayGame', () => {
     ['.','.','.','.','.','.','.','0']
   ];
   let conway = new Conway(grid);
+
+  it('should throw error if validation fails on initialization', () => {
+    expect(() => {new Conway([]) }).toThrow(new Error('Invalid Grid!'));
+  });
 
   it('should convert grid to Cell Objects', () => {
     let flatGrid = [].concat.apply([], conway.cellGrid);
@@ -123,6 +128,7 @@ describe('ConwayGame', () => {
 
       conway.playGame();
     });
+
     it('should clear terminal screen on playGame', () => {
 
       expect(conway._clearTerminal).toHaveBeenCalled();
@@ -140,5 +146,4 @@ describe('ConwayGame', () => {
       expect(conway._updateCellLife.calls.count()).toBe(48);
     });
   });
-
 });

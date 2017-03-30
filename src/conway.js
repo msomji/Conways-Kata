@@ -1,8 +1,11 @@
 let Cell = require('./Cell');
+let GridValidator = require('./gridValidator');
 
 function Conway(grid) {
-  //validate grid and bail if fails
-
+  this.validator = new GridValidator();
+  if (!this.validator.validate(grid)) {
+    throw new Error('Invalid Grid!');
+  }
   this.maxColIndex = 7;
   this.maxRowIndex = 5;
   this.coordinates = [[1,1],
@@ -103,7 +106,7 @@ Conway.prototype.printGrid = function() {
     let printRow = "";
     let row = this.cellGrid[i];
     for(let j =0; j < row.length; j++){
-      printRow += this.cellGrid[i][j].alive ? '.' : '0';
+      printRow += this.cellGrid[i][j].alive ? ' . ' : ' 0 ';
     }
     console.log(printRow + '\n');
   }
