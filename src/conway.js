@@ -6,8 +6,8 @@ function Conway(grid) {
   if (!this.validator.validate(grid)) {
     throw new Error('Invalid Grid!');
   }
-  this.maxColIndex = 7;
-  this.maxRowIndex = 5;
+  this.maxColIndex = this.validator.maxCols;
+  this.maxRowIndex = this.validator.maxRows;
   this.coordinates = [[1,1],
                       [1, -1],
                       [-1, 1],
@@ -15,17 +15,16 @@ function Conway(grid) {
                       [0,1],
                       [0,-1],
                       [1, 0],
-                      [-1, 0]
-  ];
+                      [-1, 0]];
   this.cellGrid = this._buildCells(grid);
 }
 
 Conway.prototype._buildCells = function (grid) {
   let objectGrid = [];
-  for (let x =0; x <= this.maxRowIndex; x++){
+  for (let rowIndex =0; rowIndex < this.maxRowIndex; rowIndex++){
     let row = [];
-    for(let y=0; y <= this.maxColIndex; y++) {
-      row.push(new Cell(grid[x][y]));
+    for(let colIndex=0; colIndex < this.maxColIndex; colIndex++) {
+      row.push(new Cell(grid[rowIndex][colIndex]));
     }
     objectGrid.push(row);
   }
@@ -47,7 +46,7 @@ Conway.prototype._determineNeighbours = function (row, col) {
 };
 
 Conway.prototype._validateCoordinates = function (row, col) {
-  return row <= this.maxRowIndex && row >= 0 && col <= this.maxColIndex && col >= 0;
+  return row < this.maxRowIndex && row >= 0 && col < this.maxColIndex && col >= 0;
 };
 
 Conway.prototype._updateNeighbours = function (row, col) {
@@ -55,14 +54,6 @@ Conway.prototype._updateNeighbours = function (row, col) {
   cell.liveNeighbors = this._determineNeighbours(row,col);
 };
 
-function updateLiveCells(cell) {
-  if (cell.liveNeighbors < 2 || cell.liveNeighbors > 3) {
-    cell.alive = !cell.alive;
-  }
-}
-function updateDeadCells(cell) {
-  cell.alive = cell.liveNeighbors === 3 ? !cell.alive : cell.alive;
-}
 Conway.prototype._updateCellLife = function (cell) {
   if (cell.alive){
     updateLiveCells(cell);
@@ -76,18 +67,16 @@ Conway.prototype._clearTerminal = function() {
 };
 
 Conway.prototype.updateNeighbours = function() {
-  for(let i=0; i <= this.maxRowIndex; i++){
-    let row = this.cellGrid[i];
-    for(let j =0; j < row.length; j++){
+  for(let i=0; i < this.maxRowIndex; i++){
+    for(let j =0; j < this.maxColIndex; j++){
         this._updateNeighbours(i,j);
     }
   }
 };
 
 Conway.prototype.updateCellLife = function() {
-  for(let i=0; i <= this.maxRowIndex; i++){
-    let row = this.cellGrid[i];
-    for(let j =0; j < row.length; j++){
+  for(let i=0; i < this.maxRowIndex; i++){
+    for(let j =0; j < this.maxColIndex; j++){
       this._updateCellLife(this.cellGrid[i][j]);
     }
   }
@@ -102,14 +91,23 @@ Conway.prototype.playGame = function () {
 
 Conway.prototype.printGrid = function() {
   this._clearTerminal();
-  for(let i=0; i <= this.maxRowIndex; i++){
+  for(let rowIndex=0; rowIndex < this.maxRowIndex; rowIndex++){
     let printRow = "";
-    let row = this.cellGrid[i];
-    for(let j =0; j < row.length; j++){
-      printRow += this.cellGrid[i][j].alive ? ' . ' : ' 0 ';
+    for(let columnIndex =0; columnIndex < this.maxColIndex; columnIndex++){
+      printRow += this.cellGrid[rowIndex][columnIndex].alive ? ' . ' : ' 0 ';
     }
     console.log(printRow + '\n');
   }
 };
+
+function updateLiveCells(cell) {
+  if (cell.liveNeighbors < 2 || cell.liveNeighbors > 3) {
+    cell.alive = !cell.alive;
+  }
+}
+
+function updateDeadCells(cell) {
+  cell.alive = cell.liveNeighbors === 3 ? !cell.alive : cell.alive;
+}
 
 module.exports = Conway;
