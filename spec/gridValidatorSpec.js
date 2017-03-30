@@ -4,7 +4,7 @@ describe('GridValidator', () => {
 	let gridValidator = new GridValidator(), 
 			grid;
 
-    it('should return false if grid does not have 8 columns ', () => {
+    it('should return false if grid does not have consistent columns ', () => {
         grid = [
             ['.','.','.','.','.','.','.','.'],
             ['.','.','.','.','.','.','.','.'],
@@ -16,17 +16,12 @@ describe('GridValidator', () => {
         expect(gridValidator._validateColumns(grid)).toEqual(false);
     });
 
-    it('should return false if a grid  does not have 6 rows', () => {
-		grid = [
-			['.','.','.','.','.','.','.','.'],
-			['.','.','.','.','.','.','.','.'],
-			['.','.','.','.','.','.','.','.'],
-			['.','.','.','.','.','.','.','.'],
-			['.','.','.','.','.','.','.','.']
-			];
+  it('should return false if grid does not contain any content', () => {
+    grid = [[]];
 
-		expect(gridValidator._validateRows(grid)).toEqual(false);
-	});
+    expect(gridValidator._validateColumns(grid)).toEqual(false);
+  });
+
 
 	it('should return false if a valid grid size has invalid characters in it', () => {
 		grid = [
@@ -41,8 +36,20 @@ describe('GridValidator', () => {
 		expect(gridValidator._validateElements(grid)).toEqual(false);
 	});
 
-    it('should return true if a valid grid is submitted', () => {
+    it('should return true if a valid grid  of any size is submitted', () => {
         grid = [
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
+            ['.','.','.','.','.','.','.','.'],
             ['.','.','.','.','.','.','.','.'],
             ['.','.','.','.','.','.','.','.'],
             ['.','.','.','.','.','.','.','.'],

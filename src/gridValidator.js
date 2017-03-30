@@ -1,23 +1,28 @@
 let uniq = require('lodash').uniq;
 
 function GridValidator(){
-  this.maxRows = 6;
-  this.maxCols = 8;
+  this.maxRows;
+  this.maxCols;
 }
 
-GridValidator.prototype.validate = function(array){
-	return this._validateElements(array) && this._validateRows(array) && this._validateColumns(array);
+GridValidator.prototype.validate = function(grid){
+  this.maxRows = grid.length;
+	return this._validateElements(grid) && this._validateRows() && this._validateColumns(grid);
 };
 
-GridValidator.prototype._validateRows = function(array){
-	return array.length === this.maxRows;
+GridValidator.prototype._validateRows = function(){
+  return this.maxRows >= 1;
 };
 
-GridValidator.prototype._validateColumns = function(array){
-  let max = this.maxCols;
-	return array.every(function(subArray){
-		return subArray.length === max;
-	});
+GridValidator.prototype._validateColumns = function(grid){
+  let max;
+  this.maxCols = max = grid[0].length;
+
+  let consistantColumns = grid.every(function(subArray){
+    return subArray.length === max;
+  });
+
+  return consistantColumns && this.maxCols >= 1;
 };
 
 GridValidator.prototype._validateElements = function(array) {
