@@ -1,5 +1,6 @@
-let Conway = require('../src/Conway');
-let Cell = require('../src/Cell');
+
+let Conway = require('../src/conway');
+let Cell = require('../src/cell');
 let GridValidator = require('../src/gridValidator');
 
 describe('ConwayGame', () => {

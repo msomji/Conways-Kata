@@ -1,4 +1,4 @@
-let GridValidator = require('../src/GridValidator');
+let GridValidator = require('../src/gridValidator');
 
 describe('GridValidator', () => {
 	let gridValidator = new GridValidator(), 

@@ -1,4 +1,4 @@
-let Cell = require('./Cell');
+let Cell = require('./cell');
 let GridValidator = require('./gridValidator');
 
 function Conway(grid) {

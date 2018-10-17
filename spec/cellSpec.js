@@ -1,4 +1,5 @@
-let Cell = require('../src/Cell');
+
+let Cell = require('../src/cell');
 
 describe("Cell", () => {
 		let cell; 
