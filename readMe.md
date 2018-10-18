@@ -1,4 +1,4 @@
-# Conway's game of Life Kata
+# Conway's game of Life Kata [![Build Status](https://travis-ci.com/msomji/Conways-Kata.svg?branch=master)](https://travis-ci.com/msomji/Conways-Kata)
 
 ## The Rules: 
 - Any live cell with **fewer than two live neighbors dies**, as if caused by under population.
